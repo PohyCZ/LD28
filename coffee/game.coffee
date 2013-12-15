@@ -21,8 +21,8 @@ window.onload = ->
 
 			@gameScene = new GameScene(@)
 			@menuScene = new MenuScene(@)
-			# @activeScene = @gameScene
-			@activeScene = @menuScene
+			@activeScene = @gameScene
+			# @activeScene = @menuScene
 
 			setInterval(=>
 				if @debug

@@ -12,15 +12,15 @@
     }
 
     Basket.prototype.update = function() {
-      var item, _i, _len, _ref, _results;
+      var _i, _len, _ref, _results;
       switch (this.phase) {
         case 0:
           _ref = this.gameScene.items;
           _results = [];
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            item = _ref[_i];
+            this.item = _ref[_i];
             if (this.game.keys.keyPressed(32)) {
-              _results.push(this.buy(this.currentItem));
+              _results.push(this.buy(this.item));
             } else {
               _results.push(void 0);
             }
@@ -49,7 +49,7 @@
 
     Basket.prototype.buy = function(item) {
       if (this.itemIsBuyable(item)) {
-        if (this.debug) {
+        if (this.game.debug) {
           console.log("added " + item.name + " to basket");
         }
         this.items.push(item);
@@ -59,30 +59,23 @@
     };
 
     Basket.prototype.itemIsBuyable = function(item) {
-      if (item === void 0) {
-        return false;
+      if (item !== void 0) {
+        if (item.price <= this.funds && item.x <= this.selectBarPos + this.selectBarWidth && item.x + item.sprite.width >= this.selectBarPos) {
+          return true;
+        }
       }
-      if (item.x <= this.selectBarPos + this.selectBarWidth && item.x + item.sprite.width >= this.selectBarPos && item.price <= this.funds) {
-        console.log("buyable");
-        return true;
-      } else {
-        return false;
-      }
+      return false;
     };
 
     Basket.prototype.selectBar = function() {
-      var item, selectBarActiveAlpha, selectBarAlpha, selectBarInactiveAlpha, _i, _len, _ref;
+      var selectBarActiveAlpha, selectBarAlpha, selectBarInactiveAlpha;
       selectBarInactiveAlpha = 0.3;
       selectBarActiveAlpha = 0.5;
       selectBarAlpha = selectBarInactiveAlpha;
-      _ref = this.gameScene.items;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        item = _ref[_i];
-        if (this.itemIsBuyable(item)) {
-          selectBarAlpha = selectBarActiveAlpha;
-        } else {
-          selectBarAlpha = selectBarInactiveAlpha;
-        }
+      if (this.itemIsBuyable(this.item)) {
+        selectBarAlpha = selectBarActiveAlpha;
+      } else {
+        selectBarAlpha = selectBarInactiveAlpha;
       }
       return this.game.util.drawRect(this.selectBarPos, 0, this.selectBarWidth, this.game.height, "#fff", selectBarAlpha);
     };

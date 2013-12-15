@@ -22,7 +22,7 @@
         this.mouse = new Mouse(canvasId);
         this.gameScene = new GameScene(this);
         this.menuScene = new MenuScene(this);
-        this.activeScene = this.menuScene;
+        this.activeScene = this.gameScene;
         setInterval(function() {
           if (_this.debug) {
             _this.stats.begin();

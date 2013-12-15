@@ -4,7 +4,7 @@
     function GameScene(game) {
       this.game = game;
       this.phase = 0;
-      this.items = this.generateItems(2);
+      this.items = this.spawnItems(5);
       if (this.game.debug) {
         console.log("-------------------------");
       }
@@ -13,10 +13,16 @@
 
     GameScene.prototype.update = function() {
       var item, _i, _len, _ref;
+      if (this.game.debug && this.game.keys.keyPressed(82)) {
+        console.log("spawning items");
+        this.items = this.spawnItems(5);
+      }
       _ref = this.items;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         item = _ref[_i];
-        item.update();
+        if (item !== void 0) {
+          item.update();
+        }
       }
       return this.basket.update();
     };
@@ -28,16 +34,18 @@
       _ref = this.items;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         item = _ref[_i];
-        item.render();
+        if (item !== void 0) {
+          item.render();
+        }
       }
       return this.basket.render();
     };
 
-    GameScene.prototype.generateItems = function(count) {
+    GameScene.prototype.spawnItems = function(count) {
       var i, items, _i;
       items = [];
       for (i = _i = 0; 0 <= count ? _i < count : _i > count; i = 0 <= count ? ++_i : --_i) {
-        items.push(new Item(parseInt(this.game.width) + 64 * i, 200, this.game, this));
+        items.push(new Item(parseInt(this.game.width) + (64 * i), 200, this.game, this));
       }
       return items;
     };

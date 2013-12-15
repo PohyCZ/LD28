@@ -11,9 +11,10 @@ class window.Basket
 	update: ->
 		switch @phase
 			when 0
-				for item in @gameScene.items
+				for @item in @gameScene.items
 					if @game.keys.keyPressed(32)
-						@buy(@currentItem)
+						@buy(@item)
+			when 1
 
 	render: ->
 		switch @phase
@@ -23,34 +24,32 @@ class window.Basket
 				if @game.debug
 					for item in @items
 						@game.util.drawText(item.name, @game.width - 50, @game.height - 5 - (`_i`*10))
+			when 1
+
 
 	buy: (item) ->
 		if @itemIsBuyable(item)
-			if @debug
+			if @game.debug
 				console.log("added #{item.name} to basket")
 			@items.push(item)
 			@gameScene.items.splice(@gameScene.items.indexOf(item), 1)
 			@funds -= item.price
 
 	itemIsBuyable: (item) ->
-		if item == undefined
-			return false
-		if item.x <= @selectBarPos + @selectBarWidth and item.x + item.sprite.width >= @selectBarPos and item.price <= @funds
-			console.log("buyable")
-			return true
-		else
-			return false
+		if item != undefined
+			if  item.price <= @funds and item.x <= @selectBarPos + @selectBarWidth and item.x + item.sprite.width >= @selectBarPos
+				return true
+		return false
 
 	selectBar: ->
 		selectBarInactiveAlpha = 0.3
 		selectBarActiveAlpha = 0.5
 		selectBarAlpha = selectBarInactiveAlpha
-
-		for item in @gameScene.items
-			if @itemIsBuyable(item)
-				selectBarAlpha = selectBarActiveAlpha
-			else
-				selectBarAlpha = selectBarInactiveAlpha
+		
+		if @itemIsBuyable(@item)
+			selectBarAlpha = selectBarActiveAlpha
+		else
+			selectBarAlpha = selectBarInactiveAlpha
 
 		@game.util.drawRect(@selectBarPos, 0, @selectBarWidth, @game.height, "#fff", selectBarAlpha)
 	
