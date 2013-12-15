@@ -3,39 +3,41 @@
   window.GameScene = (function() {
     function GameScene(game) {
       this.game = game;
-      this.items = this.generateItems(2);
       this.phase = 0;
+      this.items = this.generateItems(2);
+      if (this.game.debug) {
+        console.log("-------------------------");
+      }
+      this.basket = new Basket(this.game, this);
     }
 
     GameScene.prototype.update = function() {
-      var item, _i, _len, _ref, _results;
+      var item, _i, _len, _ref;
       _ref = this.items;
-      _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         item = _ref[_i];
-        _results.push(item.update());
+        item.update();
       }
-      return _results;
+      return this.basket.update();
     };
 
     GameScene.prototype.render = function() {
-      var item, _i, _len, _ref, _results;
+      var item, _i, _len, _ref;
       this.game.context.clearRect(0, 0, this.game.width, this.game.height);
-      this.game.util.drawRect(0, 0, this.game.width, this.game.height, "#000");
+      this.game.util.drawRect(0, 0, this.game.width, this.game.height, "#0f0f0f");
       _ref = this.items;
-      _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         item = _ref[_i];
-        _results.push(item.render());
+        item.render();
       }
-      return _results;
+      return this.basket.render();
     };
 
     GameScene.prototype.generateItems = function(count) {
       var i, items, _i;
       items = [];
       for (i = _i = 0; 0 <= count ? _i < count : _i > count; i = 0 <= count ? ++_i : --_i) {
-        items.push(new Item(parseInt(this.game.width) + 64 * i, 50, this.game));
+        items.push(new Item(parseInt(this.game.width) + 64 * i, 200, this.game, this));
       }
       return items;
     };

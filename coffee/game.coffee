@@ -20,7 +20,9 @@ window.onload = ->
 			@mouse = new Mouse(canvasId)
 
 			@gameScene = new GameScene(@)
-			@activeScene = @gameScene
+			@menuScene = new MenuScene(@)
+			# @activeScene = @gameScene
+			@activeScene = @menuScene
 
 			setInterval(=>
 				if @debug
@@ -34,11 +36,13 @@ window.onload = ->
 
 		includeScripts: ->
 			urls = [
+				"scenes/gameScene.js",
+				"scenes/menuScene.js",
+				"utils/util.js",
+				"utils/input.js",
 				"objects/item.js",
 				"objects/basket.js",
-				"scenes/gameScene.js",
-				"utils/util.js",
-				"utils/input.js"
+				"objects/button.js"
 			]
 
 			for url in urls

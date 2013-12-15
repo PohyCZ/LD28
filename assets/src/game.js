@@ -21,7 +21,8 @@
         this.keys = new Keys();
         this.mouse = new Mouse(canvasId);
         this.gameScene = new GameScene(this);
-        this.activeScene = this.gameScene;
+        this.menuScene = new MenuScene(this);
+        this.activeScene = this.menuScene;
         setInterval(function() {
           if (_this.debug) {
             _this.stats.begin();
@@ -36,7 +37,7 @@
 
       Game.prototype.includeScripts = function() {
         var script, url, urls, _i, _len, _results;
-        urls = ["objects/item.js", "objects/basket.js", "scenes/gameScene.js", "utils/util.js", "utils/input.js"];
+        urls = ["scenes/gameScene.js", "scenes/menuScene.js", "utils/util.js", "utils/input.js", "objects/item.js", "objects/basket.js", "objects/button.js"];
         _results = [];
         for (_i = 0, _len = urls.length; _i < _len; _i++) {
           url = urls[_i];

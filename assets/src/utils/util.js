@@ -9,13 +9,24 @@
       return this.game.context.drawImage(img, x, y);
     };
 
-    Util.prototype.drawRect = function(x, y, width, height, color, alpha) {
+    Util.prototype.drawRect = function(x, y, width, height, color, alpha, border, borderWidth) {
       if (alpha == null) {
         alpha = 1;
       }
+      if (border == null) {
+        border = false;
+      }
+      if (borderWidth == null) {
+        borderWidth = 1;
+      }
       this.game.context.globalAlpha = alpha;
-      this.game.context.fillStyle = color;
-      return this.game.context.fillRect(x, y, width, height);
+      if (border) {
+        this.game.context.strokeStyle = color;
+        return this.game.context.strokeRect(x, y, width, height);
+      } else {
+        this.game.context.fillStyle = color;
+        return this.game.context.fillRect(x, y, width, height);
+      }
     };
 
     /**

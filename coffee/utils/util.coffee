@@ -4,10 +4,14 @@ class window.Util
 	drawSprite: (img, x, y) ->
 		@game.context.drawImage(img, x, y)
 
-	drawRect: (x, y, width, height, color, alpha = 1) ->
+	drawRect: (x, y, width, height, color, alpha = 1, border = false, borderWidth = 1) ->
 		@game.context.globalAlpha = alpha
-		@game.context.fillStyle = color
-		@game.context.fillRect(x, y, width, height)
+		if border
+			@game.context.strokeStyle = color
+			@game.context.strokeRect(x, y, width, height)
+		else
+			@game.context.fillStyle = color
+			@game.context.fillRect(x, y, width, height)
 
 	###*
 	* Renders text

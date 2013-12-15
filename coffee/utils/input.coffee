@@ -31,13 +31,14 @@ class window.Mouse
 
 		@canvas = document.getElementById(canvasId)
 
-		@coords = {x: 0, y: 0}
+		@x = 0
+		@y = 0
 		@button = false
 
 		$(document.body).on("mousemove", (e) =>
 			rect = @canvas.getBoundingClientRect()
-			@coords.x = Math.floor(e.clientX - rect.left)
-			@coords.y = Math.floor(e.clientY - rect.top)
+			@x = Math.floor(e.clientX - rect.left)
+			@y = Math.floor(e.clientY - rect.top)
 			if @debug
 				console.log(@coords)
 		)

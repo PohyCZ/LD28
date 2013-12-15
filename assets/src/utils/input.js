@@ -44,16 +44,14 @@
       var _this = this;
       this.debug = false;
       this.canvas = document.getElementById(canvasId);
-      this.coords = {
-        x: 0,
-        y: 0
-      };
+      this.x = 0;
+      this.y = 0;
       this.button = false;
       $(document.body).on("mousemove", function(e) {
         var rect;
         rect = _this.canvas.getBoundingClientRect();
-        _this.coords.x = Math.floor(e.clientX - rect.left);
-        _this.coords.y = Math.floor(e.clientY - rect.top);
+        _this.x = Math.floor(e.clientX - rect.left);
+        _this.y = Math.floor(e.clientY - rect.top);
         if (_this.debug) {
           return console.log(_this.coords);
         }
