@@ -21,7 +21,8 @@ class window.Item
 		@price = item.price
 		@type = item.type
 		@speed = 2.5
-		@phase = 0
+		console.log(@game.gameScene)
+		@phase = @game.gameScene.phase
 
 		if @game.debug
 			console.log("generated item #{@name} at: x: #{@x}, y: #{@y}")
@@ -35,3 +36,4 @@ class window.Item
 	render: ->
 		@game.util.drawSprite(@sprite, @x, @y)
 		@game.util.drawText(@name.capitalize(), @x + @sprite.width / 2, @y - 4, "#fff", true)
+		@game.util.drawText(@price, @x + @sprite.width / 2 - 6, @y + @sprite.height + 10, "#fff", true)

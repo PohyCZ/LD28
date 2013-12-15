@@ -4,6 +4,7 @@
     function GameScene(game) {
       this.game = game;
       this.items = this.generateItems(2);
+      this.phase = 0;
     }
 
     GameScene.prototype.update = function() {

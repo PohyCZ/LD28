@@ -4,8 +4,8 @@
     var game;
     window.Game = (function() {
       function Game(canvasId) {
-        var activeScene, debug, gameScene, stats;
-        this.debug = debug = true;
+        var _this = this;
+        this.debug = true;
         this.includeScripts();
         if (this.debug) {
           console.log("-------------------------");
@@ -15,26 +15,28 @@
         this.height = $(canvasId).attr("height");
         this.fps = 60;
         if (this.debug) {
-          stats = this.initStats();
+          this.stats = this.initStats();
         }
         this.util = new Util(this);
-        gameScene = new GameScene(this);
-        this.activeScene = activeScene = gameScene;
+        this.keys = new Keys();
+        this.mouse = new Mouse(canvasId);
+        this.gameScene = new GameScene(this);
+        this.activeScene = this.gameScene;
         setInterval(function() {
-          if (debug) {
-            stats.begin();
+          if (_this.debug) {
+            _this.stats.begin();
           }
-          activeScene.update();
-          activeScene.render();
-          if (debug) {
-            return stats.end();
+          _this.activeScene.update();
+          _this.activeScene.render();
+          if (_this.debug) {
+            return _this.stats.end();
           }
         }, 1000 / this.fps);
       }
 
       Game.prototype.includeScripts = function() {
         var script, url, urls, _i, _len, _results;
-        urls = ["objects/item.js", "scenes/gameScene.js", "utils/util.js"];
+        urls = ["objects/item.js", "objects/basket.js", "scenes/gameScene.js", "utils/util.js", "utils/input.js"];
         _results = [];
         for (_i = 0, _len = urls.length; _i < _len; _i++) {
           url = urls[_i];

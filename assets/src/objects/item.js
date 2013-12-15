@@ -25,7 +25,8 @@
       this.price = item.price;
       this.type = item.type;
       this.speed = 2.5;
-      this.phase = 0;
+      console.log(this.game.gameScene);
+      this.phase = this.game.gameScene.phase;
       if (this.game.debug) {
         console.log("generated item " + this.name + " at: x: " + this.x + ", y: " + this.y);
       }
@@ -40,7 +41,8 @@
 
     Item.prototype.render = function() {
       this.game.util.drawSprite(this.sprite, this.x, this.y);
-      return this.game.util.drawText(this.name.capitalize(), this.x + this.sprite.width / 2, this.y - 4, "#fff", true);
+      this.game.util.drawText(this.name.capitalize(), this.x + this.sprite.width / 2, this.y - 4, "#fff", true);
+      return this.game.util.drawText(this.price, this.x + this.sprite.width / 2 - 6, this.y + this.sprite.height + 10, "#fff", true);
     };
 
     return Item;

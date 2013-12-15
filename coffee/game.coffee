@@ -1,7 +1,7 @@
 window.onload = ->
 	class window.Game
 		constructor: (canvasId) ->
-			@debug = debug = true
+			@debug = true
 
 			@includeScripts()
 			if @debug
@@ -13,29 +13,32 @@ window.onload = ->
 			@fps = 60
 
 			if @debug
-				stats = @initStats()
+				@stats = @initStats()
 
 			@util = new Util(@)
+			@keys = new Keys()
+			@mouse = new Mouse(canvasId)
 
-			gameScene = new GameScene(@)
+			@gameScene = new GameScene(@)
+			@activeScene = @gameScene
 
-			@activeScene = activeScene = gameScene
-
-			setInterval(->
-				if debug
-					stats.begin()
-				activeScene.update()
-				activeScene.render()
-				if debug
-					stats.end()
+			setInterval(=>
+				if @debug
+					@stats.begin()
+				@activeScene.update()
+				@activeScene.render()
+				if @debug
+					@stats.end()
 
 			1000 / @fps)
 
 		includeScripts: ->
 			urls = [
 				"objects/item.js",
+				"objects/basket.js",
 				"scenes/gameScene.js",
-				"utils/util.js"
+				"utils/util.js",
+				"utils/input.js"
 			]
 
 			for url in urls

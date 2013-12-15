@@ -1,6 +1,7 @@
 class window.GameScene
 	constructor: (@game) ->
 		@items = @generateItems(2)
+		@phase = 0
 
 	update: ->
 		for item in @items
