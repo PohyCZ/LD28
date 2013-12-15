@@ -13,6 +13,7 @@
         this.context = document.getElementById(canvasId).getContext("2d");
         this.width = $(canvasId).attr("width");
         this.height = $(canvasId).attr("height");
+        this.fps = 60;
         if (this.debug) {
           stats = this.initStats();
         }

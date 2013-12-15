@@ -9,10 +9,50 @@
       return this.game.context.drawImage(img, x, y);
     };
 
-    Util.prototype.drawRect = function(x, y, width, height, color) {
-      this.game.context.globalAlpha = 1;
+    Util.prototype.drawRect = function(x, y, width, height, color, alpha) {
+      if (alpha == null) {
+        alpha = 1;
+      }
+      this.game.context.globalAlpha = alpha;
       this.game.context.fillStyle = color;
       return this.game.context.fillRect(x, y, width, height);
+    };
+
+    /**
+    	* Renders text
+    	* @param {number} text
+    	* @param {text} color
+    	* @param {number} x position
+    	* @param {number} y position
+    	* @param {boolean} center = false
+    	* @param {text} font = "8pt Arial"
+    	* @param {number} alpha = 1
+    */
+
+
+    Util.prototype.drawText = function(text, x, y, color, center, font, alpha) {
+      var metrics;
+      if (color == null) {
+        color = "#fff";
+      }
+      if (center == null) {
+        center = false;
+      }
+      if (font == null) {
+        font = "8pt Arial";
+      }
+      if (alpha == null) {
+        alpha = 1;
+      }
+      this.game.context.font = font;
+      this.game.context.fillStyle = color;
+      this.game.context.globalAlpha = alpha;
+      if (center) {
+        metrics = this.game.context.measureText(text);
+        return this.game.context.fillText(text, x - metrics.width / 2, y);
+      } else {
+        return this.game.context.fillText(text, x, y);
+      }
     };
 
     Util.prototype.randomRange = function(min, max) {
@@ -22,6 +62,10 @@
     Util.prototype.random = function(max) {
       return Math.floor(Math.random() * (max + 1));
     };
+
+    String.prototype.capitalize = function() {
+			return this.charAt(0).toUpperCase() + this.slice(1);
+		};
 
     return Util;
 

@@ -34,7 +34,7 @@
       var i, items, _i;
       items = [];
       for (i = _i = 0; 0 <= count ? _i < count : _i > count; i = 0 <= count ? ++_i : --_i) {
-        items.push(new Item(this.game.width + 32 * i, 50, this.game));
+        items.push(new Item(parseInt(this.game.width) + 64 * i, 50, this.game));
       }
       return items;
     };

@@ -24,22 +24,23 @@
       this.name = item.name;
       this.price = item.price;
       this.type = item.type;
-      this.speed = 5;
+      this.speed = 2.5;
       this.phase = 0;
       if (this.game.debug) {
-        console.log("generated item " + this.name);
+        console.log("generated item " + this.name + " at: x: " + this.x + ", y: " + this.y);
       }
     }
 
     Item.prototype.update = function() {
       switch (this.phase) {
         case 0:
-          return this.x -= 5;
+          return this.x -= this.speed;
       }
     };
 
     Item.prototype.render = function() {
-      return this.game.util.drawSprite(this.sprite, this.x, this.y);
+      this.game.util.drawSprite(this.sprite, this.x, this.y);
+      return this.game.util.drawText(this.name.capitalize(), this.x + this.sprite.width / 2, this.y - 4, "#fff", true);
     };
 
     return Item;

@@ -10,6 +10,7 @@ window.onload = ->
 			@context = document.getElementById(canvasId).getContext("2d")
 			@width = $(canvasId).attr("width")
 			@height = $(canvasId).attr("height")
+			@fps = 60
 
 			if @debug
 				stats = @initStats()

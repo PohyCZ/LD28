@@ -16,7 +16,7 @@ class window.GameScene
 		items = []
 
 		for i in [0...count]
-			items.push(new Item((@game.width + 32*i), 50, @game))
+			items.push(new Item((parseInt(@game.width) + 64*i), 50, @game))
 
 		return items
 	
